@@ -26,7 +26,6 @@ public class EmployeeService {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
  
         Page<EmployeeEntity> pagedResult = repository.findAll(paging);
-         
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
@@ -55,7 +54,8 @@ public class EmployeeService {
             newEntity.setEmail(entity.getEmail());
             newEntity.setFirstName(entity.getFirstName());
             newEntity.setLastName(entity.getLastName());
- 
+            newEntity.setDateData(entity.getDateData());
+            
             newEntity = repository.save(newEntity);
              
             return newEntity;

@@ -1,30 +1,37 @@
 package com.howtodoinjava.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="TBL_EMPLOYEES")
+@Table(name = "TBL_EMPLOYEES")
 public class EmployeeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    
-    @Column(name="first_name")
-    private String firstName;
-    
-    @Column(name="last_name")
-    private String lastName;
-    
-    @Column(name="email", nullable=false, length=200)
-    private String email;
-    
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "email", nullable = false, length = 200)
+	private String email;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "date_data")
+	private Date dateData;
 
 	public long getId() {
 		return id;
@@ -58,9 +65,19 @@ public class EmployeeEntity {
 		this.email = email;
 	}
 
-    @Override
-    public String toString() {
-        return "EmployeeEntity [id=" + id + ", firstName=" + firstName + 
-                ", lastName=" + lastName + ", email=" + email   + "]";
-    }
+	
+
+	public Date getDateData() {
+		return dateData;
+	}
+
+	public void setDateData(Date dateData) {
+		this.dateData = dateData;
+	}
+
+	@Override
+	public String toString() {
+		return "EmployeeEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ "]";
+	}
 }
