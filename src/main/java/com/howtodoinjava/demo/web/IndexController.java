@@ -25,7 +25,7 @@ public class IndexController {
     @RequestMapping("/employeesList")
     public String getAllEmployees(
                         @RequestParam(defaultValue = "0") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy,Model model)
     {
     	model.addAttribute("employees", service.getAllEmployees(pageNo, pageSize, sortBy));
