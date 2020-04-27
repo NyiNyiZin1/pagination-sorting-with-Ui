@@ -29,10 +29,16 @@ public class IndexController {
 	EmployeeService service;
 
 	@RequestMapping("/employeesList")
-	public String getAllEmployees(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
+	public String getAllEmployees(
+			@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "5") Integer pageSize, 
+			@RequestParam(defaultValue = "id") String sortBy,
+			@RequestParam(defaultValue = "a") String firstName,
+			@RequestParam(defaultValue = "Zin") String lastName,
+			@RequestParam(defaultValue = "2020/04/01") Date fromDate,
+			@RequestParam(defaultValue = "2020/04/30") Date toDate,
 			Model model) {
-		model.addAttribute("employees", service.getAllEmployees(pageNo, pageSize, sortBy));
+		model.addAttribute("employees", service.getAllEmployees(fromDate,toDate,firstName,lastName,pageNo, pageSize, sortBy));
 
 		return "list-employees";
 	}

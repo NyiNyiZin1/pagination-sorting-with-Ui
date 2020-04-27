@@ -1,6 +1,7 @@
 package com.howtodoinjava.demo.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +23,20 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository repository;
      
-    public List<EmployeeEntity> getAllEmployees(Integer pageNo, Integer pageSize, String sortBy)
+    public List<EmployeeEntity> getAllEmployees(Date fromDate,Date toDate,String firstName,String lastName,Integer pageNo, Integer pageSize, String sortBy)
     {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        
+       Slice<EmployeeEntity> sliceResult1 = repository.findByDateDataBetweenAndFirstNameAndLastName(fromDate,toDate,firstName,lastName,paging);
  
-        Page<EmployeeEntity> pagedResult = repository.findAll(paging);
-        if(pagedResult.hasContent()) {
-            return pagedResult.getContent();
+       //Page<EmployeeEntity> pagedResult = repository.findAll(paging);
+        if(sliceResult1.hasContent()) {
+            return sliceResult1.getContent();
         } else {
             return new ArrayList<EmployeeEntity>();
         }
+        
+        
     }
      
     public EmployeeEntity getEmployeeById(Long id) throws RecordNotFoundException

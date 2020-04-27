@@ -1,5 +1,6 @@
 package com.howtodoinjava.demo.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,14 @@ public class EmployeeController
     @GetMapping
     public ResponseEntity<List<EmployeeEntity>> getAllEmployees(
                         @RequestParam(defaultValue = "0") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
-                        @RequestParam(defaultValue = "id") String sortBy)
+                        @RequestParam(defaultValue = "5") Integer pageSize,
+                        @RequestParam(defaultValue = "id") String sortBy,
+                        @RequestParam(defaultValue = "a") String firstName,
+            			@RequestParam(defaultValue = "Zin") String lastName,
+                        @RequestParam(defaultValue = "2020/04/01") Date fromDate,
+            			@RequestParam(defaultValue = "2020/04/30") Date toDate)
     {
-        List<EmployeeEntity> list = service.getAllEmployees(pageNo, pageSize, sortBy);
+        List<EmployeeEntity> list = service.getAllEmployees(fromDate,toDate,firstName,lastName,pageNo, pageSize, sortBy);
  
         return new ResponseEntity<List<EmployeeEntity>>(list, new HttpHeaders(), HttpStatus.OK);
     }
